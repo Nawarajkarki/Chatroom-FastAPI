@@ -1,0 +1,61 @@
+<!-- <!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <h1>Chat App</h1>
+    <input type="text" id="messageInput" placeholder="Message" />
+    <button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+    <script>
+      var username = prompt("Please enter your username");
+      var messageInput = document.getElementById("messageInput");
+      var messages = document.getElementById("messages");
+      var ws = new WebSocket(`ws://localhost:8000/ws/${username}`);
+
+      ws.onmessage = function (event) {
+        var message = document.createElement("li");
+        message.textContent = event.data;
+        messages.appendChild(message);
+      };
+
+      function sendMessage() {
+        ws.send(messageInput.value);
+        messageInput.value = "";
+      }
+    </script>
+  </body>
+</html> -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+  </head>
+  <body>
+    <h1>Chat App</h1>
+    <h2 id="usernameDisplay"></h2>
+    <input type="text" id="messageInput" placeholder="Message" />
+    <button onclick="sendMessage()">Send</button>
+    <ul id="messages"></ul>
+    <script>
+      var username = prompt("Please enter your username");
+      var usernameDisplay = document.getElementById("usernameDisplay");
+      usernameDisplay.textContent = "Username: " + username;
+      var messageInput = document.getElementById("messageInput");
+      var messages = document.getElementById("messages");
+      var ws = new WebSocket(`ws://localhost:8000/ws/${username}`);
+
+      ws.onmessage = function (event) {
+        var message = document.createElement("li");
+        message.textContent = event.data;
+        messages.appendChild(message);
+      };
+
+      function sendMessage() {
+        ws.send(messageInput.value);
+        messageInput.value = "";
+      }
+    </script>
+  </body>
+</html>
