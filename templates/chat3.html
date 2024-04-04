@@ -36,25 +36,48 @@
       }
       #messages .message {
         margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 5px;
       }
       #messages .message.own {
-        align-self: flex-start;
+        align-self: flex-end;
         background-color: #e6f7ff;
       }
+
       #messages .message.other {
-        align-self: flex-end;
+        align-self: flex-start;
         background-color: #fff3cd;
+      }
+      #messages .message.join {
+        align-self: center;
+        /* color: #d4edda; */
+        padding: 0;
+        margin: 0;
       }
       #footer {
         display: flex;
-        justify-content: space-between;
+      }
+      #messageInput {
+        flex-grow: 1;
+        margin-right: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
       }
     </style>
   </head>
   <body>
     <div id="chatContainer">
       <div id="header">
-        <h1>Chat App</h1>
+        <h1>{{chatroom}}</h1>
         <h2 id="usernameDisplay"></h2>
       </div>
       <div id="messages"></div>
@@ -75,11 +98,15 @@
         var message = document.createElement("div");
         message.textContent = event.data;
         message.classList.add("message");
-        if (event.data.startsWith(username)) {
+
+        if (event.data.includes("joined the chat")) {
+          message.classList.add("join");
+        } else if (event.data.startsWith("You:")) {
           message.classList.add("own");
         } else {
           message.classList.add("other");
         }
+
         messages.appendChild(message);
       };
 

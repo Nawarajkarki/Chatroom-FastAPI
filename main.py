@@ -12,8 +12,12 @@ app.include_router(router)
 templates = Jinja2Templates(directory="templates")
 
 
-@app.get("/", response_class=HTMLResponse)
-async def get():
-    return templates.TemplateResponse("chat3.html", {"request": {}})
 
+@app.get("/", response_class=HTMLResponse)
+async def get(chatroom: str = "chat"):
+    return templates.TemplateResponse("chat3.html", {"request": {}, "chatroom": "Chat App"})
+
+@app.get("/{chatroom}", response_class=HTMLResponse)
+async def get(chatroom: str = "chat"):
+    return templates.TemplateResponse("chat3.html", {"request": {}, "chatroom": chatroom})
 
