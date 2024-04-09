@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{chatroom}}</title>
+    <link rel="stylesheet" href="../static/css/style.css" />
+  </head>
+  <body>
+    <div id="chatContainer">
+      <div id="header">
+        <h1>{{chatroom}}</h1>
+        <h2 id="usernameDisplay"></h2>
+      </div>
+      <div id="messages"></div>
+      <div id="footer">
+        <input type="text" id="messageInput" placeholder="Message" />
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </div>
+
+    <script src="../static/js/script.js"></script>
+  </body>
+</html>

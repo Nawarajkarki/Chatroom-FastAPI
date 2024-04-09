@@ -10,17 +10,22 @@ router = APIRouter()
 manager = ConnectionManager()
 
 
-@router.websocket("/ws/{username}")
-async def websocket_endpoint(websocket: WebSocket, username: str):
-    await manager.connect(websocket)
+@router.websocket("/ws/{chatroom}/{username}")
+async def websocket_endpoint(websocket: WebSocket,chatroom:str, username: str):
+    await manager.connect(chatroom=chatroom, websocket=websocket)
     await websocket.send_text("You joined the chat")
-    await manager.broadcast(f"{username} joined the chat", websocket)
+    await manager.broadcast(message= f"{username} joined the chat", chatroom=chatroom, sender= websocket)
     try:
         while True:
             data = await websocket.receive_text()
             await manager.send_personal_message(f"You: {data}", websocket)
-            await manager.broadcast(f"{username}: {data}", websocket)
+            await manager.broadcast(
+                message=f"{username}: {data}",
+                chatroom=chatroom, 
+                sender= websocket
+            )
+            
     except WebSocketDisconnect:
-        manager.disconnect(websocket)
+        # await manager.broadcast(message=f"{username} left the chat",chatroom=chatroom, sender= websocket)
+        manager.disconnect(chatroom=chatroom, websocket=websocket)
 
-        await manager.broadcast(f"User {username} left the chat")
