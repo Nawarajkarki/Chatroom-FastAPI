@@ -14,8 +14,19 @@ class ConnectionManager:
             
         self.active_connections[chatroom].append(websocket)
 
-    async def disconnect(self, chatroom:str, websocket: WebSocket):
+
+    async def disconnect(self, chatroom:str, websocket: WebSocket, username:str):
+        # if chatroom in self.active_connections and username in self.active_connections[chatroom]:
+        #     del self.active_connections[chatroom][username]
+        #     if not self.active_connections[chatroom]:
+        #         del self.active_connections[chatroom]
+
+        #     # Send a message to all users in the chatroom that the user has left
+        #     leave_message = f"{username} has left the chat."
+        #     for user, user_websocket in self.active_connections[chatroom].items():
+        #         await user_websocket.send_text(leave_message)
         self.active_connections[chatroom].remove(websocket)
+
 
     async def send_personal_message(self, message: str, websocket: WebSocket):
         await websocket.send_text(message)

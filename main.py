@@ -18,6 +18,13 @@ app.mount("/static", StaticFiles(directory="static"), name='static')
 # async def get(chatroom: str = "chat"):
 #     return templates.TemplateResponse("chatroom.html", {"request": {}, "chatroom": "Chat App"})
 
+
+@app.get("/", response_class=HTMLResponse)
+async def get():
+    return templates.TemplateResponse("home.html")
+
+
+    
 @app.get("/{chatroom}", response_class=HTMLResponse)
 async def get(chatroom: str = "chat"):
     return templates.TemplateResponse("chatroom.html", {"request": {}, "chatroom": chatroom})

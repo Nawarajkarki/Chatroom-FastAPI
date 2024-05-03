@@ -26,6 +26,6 @@ async def websocket_endpoint(websocket: WebSocket,chatroom:str, username: str):
             )
             
     except WebSocketDisconnect:
-        # await manager.broadcast(message=f"{username} left the chat",chatroom=chatroom, sender= websocket)
-        manager.disconnect(chatroom=chatroom, websocket=websocket)
+        await manager.broadcast(message=f"{username} left the chat",chatroom=chatroom, sender= websocket)
+        manager.disconnect(chatroom=chatroom, websocket=websocket, username=username)
 
